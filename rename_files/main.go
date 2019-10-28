@@ -9,23 +9,70 @@ import (
 )
 
 func main() {
+  var funcNum string
+  fmt.Println("输入需要使用功能的序号：")
+  fmt.Println("1. 批量重命名文件")
+  fmt.Println("2. 替换文件夹部分名称")
+  fmt.Scanf("%s", &funcNum)
+  invokeFunc(funcNum)
+}
+func invokeFunc(funcNum string) {
+  if len(funcNum) == 1 {
+    switch funcNum {
+    case "1":
+      renameFile()
+    case "2":
+      replaceStr()
+    }
+  } else {
+    fmt.Println("请输入正确的功能序号")
+  }
+}
+func replaceStr() {
+  var oldStr string
+  var newStr string
+  var filePath string
+  fmt.Println("输入需要替换的旧字符串")
+  fmt.Scanf("%s", &oldStr)
+  fmt.Println("输入需要替换的新字符串")
+  fmt.Scanf("%s", &newStr)
+  fmt.Println("输入需要批量修改文件的路径")
+  fmt.Scanf("%s", &filePath)
+  files, err := ioutil.ReadDir(filePath)
+  if err != nil {
+    log.Println("读取路径错误：", err)
+  }
+  for _, file := range files {
+    if file.IsDir() {
+      oldName := file.Name()
+      newName := ""
+      for _, str := range oldName {
+        if string(str) == "_" {
+          newName += "-"
+        } else {
+          newName += string(str)
+        }
+      }
+      err := os.Rename(filePath + oldName, filePath + newName)
+      if err != nil {
+          log.Fatal("reName Error", err)
+      } else {
+        log.Info("替换成功！")
+      }
+    } else {
+      continue
+    }
+  }
+}
+
+func renameFile() {
   var filePath string
   var fileName string
-  fmt.Println("输入需要使用功能的序号：")
-  fmt.Println("1. 批量重复名文件")
-  fmt.Println("输入需要使用功能的序号：")
+  start := 1
   fmt.Println("输入需要批量修改文件的路径")
   fmt.Scanf("%s", &filePath)
   fmt.Println("输入修改的新名字")
   fmt.Scanf("%s", &fileName)
-  renameFile(filePath, fileName, 1)
-}
-
-func replaceStr(newStr string)  {
-
-}
-
-func renameFile(filePath string, fileName string, start int) {
   files, err := ioutil.ReadDir(filePath)
   if err != nil {
     log.Println(err)

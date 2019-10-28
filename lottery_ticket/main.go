@@ -11,9 +11,9 @@ func main() {
   rand.Seed(199681*199732*time.Now().Unix())
   fmt.Print("预测结果是：")
   for i := 0; i < 5; i++ {
-    fmt.Print(rand.Intn(36) - 1, " ")
+    fmt.Print(rand.Intn(36) - 1, "|")
   }
   for i := 0; i < 2; i++ {
-    fmt.Print(rand.Intn(13) - 1, " ")
+    fmt.Print(rand.Intn(13) - 1, "|")
   }
 }
