@@ -11,8 +11,8 @@ import (
 const (
 	grabURL   = "https://vol.moe/"
 	loginURL  = "https://vol.moe/login_do.php"
-	email     = "1248210537@qq.com"
-	passwd    = "1996617zjxD"
+	email     = "*******"
+	passwd    = "*******"
 	keepalive = "on"
 )
 
